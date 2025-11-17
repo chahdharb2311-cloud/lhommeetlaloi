@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'homme et la loi</title>
+    <style>
+   
+    div{
+        border: #000000 5px solid;
+        max-width: 800px;
+       margin: 0 auto;
+        padding: 20px;
+        background-color: #060236;
+        border-radius: 5px;
+
+    }
+    h1{
+        text-align: center;
+        color: #d49a37c7;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 5rem;
+        margin: 20px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+    }
+    p{
+    font-size: 1.5rem;
+      margin: 10px 0;
+      color: #FFFFFF;
+      font-family: 'Times New Roman', Times, serif,Arial, sans-serif;
+      line-height: 1.5;
+      text-shadow: 1px 1px 2px #000;
+      font-weight: bold; 
+      display: block;
+    }
+    button{
+      display: block;
+      padding: 5px 20px;
+      font-size: 2rem;
+      color: #fff;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px auto;
+      margin-bottom: 50px;
+    }
+    .b1{
+        margin-top: 20px;
+        display: none;
+
+    }
+    button:hover{
+    background-color: #b31b0052;
+    box-shadow: 0 0 20px rgba(212, 154, 55, 0.8); /* Golden glow matching your theme */
+    transform: scale(1.05); /* Slight grow */
+    transition: all 0.3s ease;
+}
+.flash-win {
+    animation: flashGreen 0.5s ease-in-out;
+}
+@keyframes flashGreen {
+    0%, 100% { background-color: #03045E; } /* Original color */
+    50% { background-color: #00FF00; } /* Bright green flash */
+}
+    
+    .start{
+      font-size: 1.5rem;
+      margin: 10px 0;
+      color: #FFFFFF;
+      font-family: 'Times New Roman', Times, serif,Arial, sans-serif;
+      line-height: 1.5;
+      text-shadow: 1px 1px 2px #000;
+      font-weight: bold; 
+      display: block;
+    }
+    .resultat{
+      font-size: 1.5rem;
+      margin: 10px 0;
+      color: #FFFFFF;
+      font-family: 'Times New Roman', Times, serif,Arial, sans-serif;
+      line-height: 1.5;
+      text-shadow: 1px 1px 2px #000;
+      font-weight: bold; 
+      display: block;
+    }
+    .suivant {
+      display: inline-block;
+      margin: 5px 10px;
+      margin-bottom: 20px;
+    }
+    body{
+     margin: 0;
+      text-align: center;
+      background-color: #03045E;
+      position: relative;
+        }
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background-image: url('taswira.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: -1;
+    }
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background-image: url('taswira.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: -1;
+    }
+    div{
+        border: #000000 5px solid;
+        max-width: 800px;
+       margin: 0 auto;
+        padding: 20px;
+        background-color: #060236;
+        border-radius: 5px;
+        position: relative;
+        z-index: 1;
+
+    }
+    @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+
+    </style>
+</head>
+
+<body>
+    <div>
+    <h1>bienvenue </h1>
+    <p>ce jeux interactif vous propose des cas de notre société  qui sont mis en scéne devant les tribunaux :
+        appuyer victoire ou
+     défaite et attendre le resultat</p>
+    <button onclick="startGame()" class="suivant">commencer</button>
+    <button onclick="nextCase()" id="b1" class="suivant">cas suivant</button>
+    <p id="start"></p>
+    <button onclick="victoire()">victoire</button>
+    <button onclick="defis()">défaite</button>
+    <p id="resultat"></p>
+    <button onclick="recommencer()" id="b1">recommencer</button>
+    <button  onclick="window.location.href='page1.html'" id="b1">Revenir à l'accueil</button>
+    
+</div>
+
+    
+
+
+    <script>
+        //les 3 sujets de la societe
+        s1="Dans les rues de Londres en 1990, un pamphlet explosif accuse McDonald's de crimes cachés : exploitation, destruction environnementale et maltraitance animale. Deux activistes, Helen Steel et Dave Morris, se défendent seuls contre le géant, dans le procès le plus long de l'histoire britannique. Devinez : L'affaire est gagnée ou perdue ?0"
+        s2="En 2014, en Europe, un homme affronte Google pour effacer son passé en ligne.Le combat devient mondial : vie privée contre pouvoir du web. ⚖️Des juges décident du destin numérique de millions de personnes…À ton avis, victoire ou défaite ? 1"
+        s3="Oracle attaque Google pour avoir utilisé son code . un combat géant de 9 milliards de dollars commence ! Les juges doivent décider : invention ou vol À ton avis, qui gagne : google est gagnant perdant?1"
+        s4="Un homme en Hongrie perd son droit de vote à cause de son handicap mental.Il décide de se battre devant la Cour européenne des droits de l’homme Liberté et égalité sont au cœur du combat.À ton avis, a-t-il gagné ou perdu ?1"
+        allSubjects = [s1, s2, s3, s4]
+        asub = [...allSubjects]
+
+        //le sujet choisi a partir de alea
+        sujet=""
+        function nextCase() {
+            document.getElementById("resultat").innerHTML = "";
+            if (asub.length === 0) {
+                alert("Tous les cas sont terminés ! veuillez appuyer \"recommencer\".");
+                asub = [...allSubjects];
+            }
+            // Pick one randomly from available
+            random = Math.floor(Math.random() * asub.length);
+            chosenSujet = asub[random];
+            // Remove it from available
+            asub.splice(random, 1);
+            document.getElementById("start" ).innerHTML=chosenSujet.substring(0, chosenSujet.length-1);
+        }
+        function startGame() {
+            if (asub.length === 0) {
+                alert("Tous les cas sont terminés ! veuillez appuyer \"recommencer\".");
+                asub = [...allSubjects]}
+            // Array of sujets
+            liste = [s1, s2, s3];
+             // Pick one randomly
+            random = Math.floor(Math.random() * asub.length);
+            chosenSujet = asub.splice(random, 1)[0];
+            document.getElementById("start" ).innerHTML=chosenSujet.substring(0, chosenSujet.length-1);
+        }
+ 
+        function victoire() {
+            const n = "1";
+            const c = chosenSujet.substring(chosenSujet.length - 1);
+            if (n === c) {
+                
+                if(chosenSujet==s2){
+                    document.getElementById("resultat").innerHTML="vous avez gagné ! L'Europe reconnaît officiellement le droit à l'oubli. Désormais, chacun peut exiger que Google efface certaines données personnelles.Une victoire historique pour la vie privée face aux géants du numérique. "
+                }
+                if(chosenSujet==s3){
+                    document.getElementById("resultat").innerHTML="vous avez gagné !  Google a gagné ! 🎉Ses avocats ont montré que le code était utilisé de façon juste et légale.Ils ont défendu Google avec force et ont sauvé le monde des programmeurs Grâce à eux, la liberté de créer a été protégée"
+
+                }
+                if(chosenSujet==s4){
+                    document.getElementById("resultat").innerHTML="vous avez gagné ! Les avocats ont défendu avec passion le droit fondamental de Alajos à voter.Grâce à leur courage et à leur humanité, la Cour a reconnu que tous les citoyens comptent, peu importe leur handicap Une victoire pour la justice et la dignité humaine.";
+                }
+    
+             
+            } 
+            else {
+                if (chosenSujet==s1){
+                    document.getElementById("resultat").innerHTML=" vous avez perdu!! Ils ont perdu le procès… mais gagné bien plus. Seuls face à McDonald’s, Helen et Dave ont résisté pendant 6 longues années. Leur combat a révélé au monde l’envers du fast-food : exploitation, pollution, manipulation. Une défaite sur le papier, mais une victoire historique pour la vérité.";
+                }
+                document.querySelector("div").classList.add("shake");
+                setTimeout(() => document.querySelector("div").classList.remove("shake"), 500);
+                
+            }
+        }
+
+        function defis() {
+            const n = "0";
+            c=chosenSujet.substring(chosenSujet.length - 1)
+            if (n === c) {
+                document.getElementById("resultat").innerHTML="vous avez gagné, Ils ont perdu le procès… mais gagné bien plus. Seuls face à McDonald’s, Helen et Dave ont résisté pendant 6 longues années. Leur combat a révélé au monde l’envers du fast-food : exploitation, pollution, manipulation. Une défaite sur le papier, mais une victoire historique pour la vérité.";
+            } 
+            else{
+                if (chosenSujet==s2){
+                    document.getElementById("resultat").innerHTML="vous avez  perdu, L'Europe reconnaît officiellement le droit à l'oubli. Désormais, chacun peut exiger que Google efface certaines données personnelles.Une victoire historique pour la vie privée face aux géants du numérique. "
+                    
+                }
+                if (chosenSujet==s3){
+                    document.getElementById("resultat").innerHTML="vous avez perdu,  Google a gagné ! Ses avocats ont montré que le code était utilisé de façon juste et légale.Ils ont défendu Google avec force et ont sauvé le monde des programmeurs Grâce à eux, la liberté de créer a été protégée";
+                }
+                if(chosenSujet==s4){
+                    document.getElementById("resultat").innerHTML="vous avez perdu, Les avocats ont défendu avec passion le droit fondamental de Alajos à voter.Grâce à leur courage et à leur humanité, la Cour a reconnu que tous les citoyens comptent, peu importe leur handicap Une victoire pour la justice et la dignité humaine.";
+
+                }
+                document.querySelector("div").classList.add("shake");
+setTimeout(() => document.querySelector("div").classList.remove("shake"), 500);
+        
+            }
+        }
+       function recommencer() {
+           location.reload();
+
+       }
+    </script>
+
+ 
+
+
+
+
+
+</body>
+</html>
